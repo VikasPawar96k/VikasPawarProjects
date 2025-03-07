@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bike Petrol Updates</title>
+      <!--Title logo s-->
+ <link rel="icon" href="Assets/LOGOVIKASWHITE.svg" type="image/icon type">
+ <!--Title logo e-->
+    <!-- Bootstrap CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/caedfdc778.js" crossorigin="anonymous"></script>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 50px; }
+        .container { max-width: 800px; margin: auto; }
+        .form-group { margin-bottom: 15px; }
+        table { width: 100%; margin-top: 20px; border-collapse: collapse; }
+        th, td { border: 1px solid black; padding: 10px; text-align: center; }
+        th { background-color: #f4f4f4; }
+    </style>
+</head>
+<body>
+         <!--Header Starts-->
+         <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <div class="d-flex align-items-center">
+                        <img src="Assets/LOGOVIKAS.svg" alt="MainLogo" height="150" width="150" class="mt-4" />
+       
+                        <div class="ml-2 mt-2">
+                            <div class=" text-black fs-5 fw-bold mt-4">
+                                <span class="fw-bolder">Vikas. Anant. Pawar
+               
+                                    
+                <br />
+                                BIKE PETROL RECORDS
+                                    <br />MH.42 AU.5236
+                                </span>
+       
+                               
+       
+                            </div>
+                              
+                        </div>
+       
+       <img src="Assets/LOGOTWO.svg" alt="MainLogo" height="120" width="100" class="mt-4" />
+                    </div>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-3 mt-2">
+                    <div class="text-end">
+                    </div>
+       
+                </div>
+            </div>
+        </div>
+        <!--UiKit nav s-->
+        <header class="navbar-light">
+            <nav class="navbar" style="background-color: cornflowerblue">
+                <div class="container-fluid">
+       
+       
+       
+       
+                    <ul class="nav justify-content-center">
+                        <li class="nav-item"><a href="#" class="nav-link px-2 mb-0 ms-3 text-white fw-bold"><i class="fa-solid fa-house"></i>&#160Home</a></li>
+                     
+                </div>
+            </nav>
+        </header>
+        <hr />
+    <div class="container">
+        <h2 class="mb-4">🚀 Bike Petrol Updates</h2>
+
+        <!-- Form -->
+        <form id="dataForm" class="row g-3">
+            <div class="col-md-6 form-group">
+                <input type="text" id="kmreading" class="form-control" placeholder="K.M Reading" required>
+            </div>
+            <div class="col-md-6 form-group">
+                <input type="text" id="petrol" class="form-control" placeholder="Petrol Price" required>
+            </div>
+            <div class="col-md-6 form-group">
+                <input type="text" id="payment" class="form-control" placeholder="Payee" required>
+            </div>
+            <div class="col-md-6 form-group">
+                <input type="text" id="remaining" class="form-control" placeholder="Remaining" required>
+            </div>
+            <div class="col-md-6 form-group">
+                <input type="text" id="payeeremaining" class="form-control" placeholder="Remaining Payee Name" required>
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-success w-100">Submit</button>
+            </div>
+        </form>
+
+        <!-- Display Data -->
+        <h2 class="mt-4">📊 Submitted Data</h2>
+        <button onclick="fetchData()" class="btn btn-primary mb-3">Refresh Data</button>
+        
+        <table class="table table-bordered">
+            <thead class="table-light">
+                <tr>
+                    <th>K.M Reading</th>
+                    <th>Petrol Price</th>
+                    <th>Payee</th>
+                    <th>Remaining</th>
+                    <th>Payee Remaining</th>
+                    <th>Timestamp</th>
+                </tr>
+            </thead>
+            <tbody id="dataTable"></tbody>
+        </table>
+    </div>
+
+    <!-- Bootstrap Script -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        const scriptURL = "https://script.google.com/macros/s/AKfycbxwWmS-orni-z0z8ctKyEIctjLu0E5E85iWJkUGGRKuo3yOMlmpBaEaQp9FkqhBqXZO1w/exec";
+
+
+        // Submit Data
+        document.getElementById("dataForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            let formData = {
+                kmreading: document.getElementById("kmreading").value,
+                petrol: document.getElementById("petrol").value,
+                payment: document.getElementById("payment").value,
+                remaining: document.getElementById("remaining").value,
+                payeeremaining: document.getElementById("payeeremaining").value
+            };
+
+            fetch(scriptURL, {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData)
+            }).then(() => {
+                alert("✅ Data submitted successfully!");
+                document.getElementById("dataForm").reset();
+                setTimeout(fetchData, 2000); // Delay fetching to allow data update
+            }).catch(error => console.error("❌ Error:", error));
+        });
+
+        // Fetch and Display Data
+        function fetchData() {
+            fetch(scriptURL)
+                .then(response => response.json())
+                .then(data => {
+                    let table = document.getElementById("dataTable");
+                    table.innerHTML = ""; // Clear previous data
+                    data.forEach(row => {
+                        let newRow = `<tr>
+                            <td>${row.kmreading}</td>
+                            <td>${row.petrol}</td>
+                            <td>${row.payment}</td>
+                            <td>${row.remaining}</td>
+                            <td>${row.payeeremaining}</td>
+                            <td>${row.timestamp}</td>
+                        </tr>`;
+                        table.innerHTML += newRow;
+                    });
+                })
+                .catch(error => console.error("❌ Error fetching data:", error));
+        }
+
+        // Load data on page load
+        fetchData();
+    </script>
+
+</body>
+</html>
+            <!--Footer by Vikas Pawar-->
+
+            <footer class="footer">
+                <div class="container-fluid mt-2">
+                 
+                       
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p class="text-center">
+                                 
+                                    <br />
+                        <img src="Assets/LOGOVIKAS.svg" alt="Logo 1" style="height: 100px;" />
+                                  <br />
+                                       Copyright &copy; 2025-26<br />
+                                    Developed and Maintained by:
+                           
+                                    Vikas Anant Pawar
+                            <br />
+                                    All Rights Reserved.
+                                </p>
+                            </div>
+                        </div>
+                    
+                </div>
+            </footer>
+                   
+               </form>
+               <asp:PlaceHolder runat="server">
+                  
+               </asp:PlaceHolder>
+           
+                
+                   <!-- JavaScript Libraries -->
+                   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+                   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+                   <script src="lib/wow/wow.min.js"></script>
+                   <script src="lib/easing/easing.min.js"></script>
+                   <script src="lib/waypoints/waypoints.min.js"></script>
+                   <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+               <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+           <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+                   <!-- Template Javascript -->
+                   <script src="js/main.js"></script>
+           </body>
+                  <!--Right Click Disable S-->
+              <script type="text/javascript">  
+                  var message = "Not Allowed!";
+           
+                  function click(event) {
+                      if (event.which == 2 || event.which == 3) {
+                          alert(message);
+                          return false;
+                      }
+                  }
+                  document.addEventListener("mousedown", click);
+                  document.oncontextmenu = new Function("return false");
+              </script>
+               
+           
+           </html>
+           
