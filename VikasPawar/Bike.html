@@ -94,23 +94,27 @@
             </div>
         </form>
 
-        <!-- Display Data -->
-        <h2 class="mt-4">📊 Submitted Data</h2>
-        <button onclick="fetchData()" class="btn btn-primary mb-3">Refresh Data</button>
-        
-        <table class="table table-bordered">
-            <thead class="table-light">
-                <tr>
-                    <th>K.M Reading</th>
-                    <th>Petrol Price</th>
-                    <th>Payee</th>
-                    <th>Remaining</th>
-                    <th>Payee Remaining</th>
-                    <th>Timestamp</th>
-                </tr>
-            </thead>
-            <tbody id="dataTable"></tbody>
-        </table>
+      
+       <!-- Display Data -->
+<h2 class="mt-4">📊 Submitted Data</h2>
+<button onclick="fetchData()" class="btn btn-primary mb-3">Refresh Data</button>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-striped table-primary">
+        <thead class="bg-primary text-white">
+            <tr>
+                <th>K.M Reading</th>
+                <th>Petrol Price</th>
+                <th>Payee</th>
+                <th>Remaining</th>
+                <th>Payee Remaining</th>
+                <th>Timestamp</th>
+            </tr>
+        </thead>
+        <tbody id="dataTable"></tbody>
+    </table>
+</div>
+
     </div>
 
     <!-- Bootstrap Script -->
