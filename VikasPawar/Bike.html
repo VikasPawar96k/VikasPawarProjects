@@ -17,6 +17,15 @@
             });
         });
     </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            if (document.referrer.indexOf(window.location.origin) === -1) {
+                // Redirect if the user directly accesses the page
+                window.location.href = "Index.html";
+            }
+        });
+    </script>
+    
     <style>
         body { font-family: Arial, sans-serif; text-align: center; margin: 50px; }
         .container { max-width: 800px; margin: auto; }
